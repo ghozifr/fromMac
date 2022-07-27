@@ -16,6 +16,20 @@ const handleGetRequest = (req, res) => {
                 res.writeHeader(200, {"Content-Type": "application/json"})
                 res.write(JSON.stringify(payload))
             }
+            res.end()
         })
     }
 }
+
+// Creates server instance
+const server = htttp.createServer((req, res) => {
+    const {method} = req
+
+    switch(method) {
+        case 'GET':
+            return handleGetRequest(req, res)
+            default:
+                throw new Error(`Unsupported request method: ${method}`)
+    }
+})
+
